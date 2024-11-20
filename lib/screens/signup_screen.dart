@@ -1,5 +1,8 @@
+import 'package:chat/controllers/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'dashboard_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -13,16 +16,6 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  Future<void> createAccount() async{
-    try{
-     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text,
-          password: password.text);
-      print('Account created');
-    }catch(e){
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +30,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             children: [
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: email,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -48,6 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: password,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -62,11 +57,25 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
               SizedBox(height:25),
-              ElevatedButton(onPressed: (){
-                if(userForm.currentState!.validate()){
-                  createAccount();
-                }
-              }, child: Text('Create account'))
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity, 50),
+                          backgroundColor: Colors.blue[600],
+                        ),
+                        onPressed: (){
+                      if(userForm.currentState!.validate()){
+                        SignupController.createAccount(email: email.text, password: password.text, context: context);
+                      }
+                    }, child: Text('Create account', style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
+                  )),
+                ],
+              )
             ],
           ),
         ),

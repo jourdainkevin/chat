@@ -1,6 +1,8 @@
 import 'package:chat/firebase_options.dart';
+import 'package:chat/screens/spalsh_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +21,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Center( child: Text('Chat rooms'))
-
-      )
-    );
+      theme: ThemeData(brightness: Brightness.dark,
+      useMaterial3: true,
+      fontFamily: 'Poppins'),
+      home: SplashScreen()
+      );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:chat/screens/spalsh_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chat/screens/dashboard_screen.dart';
@@ -15,7 +16,7 @@ class LoginController{
       print('Account created');
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
           builder: (context){
-            return DashboardScreen();
+            return SplashScreen();
           }), (route) => false);
     }catch(e){
       SnackBar messageSnackBar = SnackBar(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/user_provider.dart';
 import 'dashboard_screen.dart';
 import 'login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,6 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void openDashboard() {
+    Provider.of<UserProvider>(context, listen: false).getUserDetails();
+
     Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context){
           return DashboardScreen();
